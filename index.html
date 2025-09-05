@@ -3,133 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Stirbys Family</title>
+<title>STIRBYS</title>
 <style>
 body {
   margin: 0;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(135deg, #ffefd5, #ffe4e1);
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   overflow: hidden;
 }
 
-h1 {
-  font-size: 3em;
+.logo {
+  font-size: 5em;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
+  animation: pulse 2s infinite alternate, rainbow 6s linear infinite;
   cursor: pointer;
-  animation: glow 1.5s infinite alternate;
   user-select: none;
+  letter-spacing: 5px;
 }
 
-p {
-  font-size: 1.2em;
-  text-align: center;
-  margin-top: 0;
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1) rotate(3deg); }
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 5px #ff69b4; }
-  to { text-shadow: 0 0 20px #ff69b4; }
+@keyframes rainbow {
+  0%   { color: #ff69b4; }
+  25%  { color: #ff6347; }
+  50%  { color: #ffa500; }
+  75%  { color: #32cd32; }
+  100% { color: #1e90ff; }
 }
 
-.mouse-trail {
+/* floating emojis */
+.emoji {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
+  font-size: 2em;
+  animation: floatUp 3s forwards;
   pointer-events: none;
-  background: #ff69b4;
-  mix-blend-mode: screen;
-  animation: trail-fade 0.5s forwards;
 }
 
-@keyframes trail-fade {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(2); }
-}
-
-.photo-slider {
-  margin-top: 20px;
-  width: 300px;
-  height: 200px;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.photo-slider img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.photo-slider img.active {
-  opacity: 1;
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-150px) scale(1.5); }
 }
 </style>
 </head>
 <body>
 
-<h1 id="title">Welcome to the Stirbys Family!</h1>
-<p>Click around, have fun, and explore! 🎉</p>
-
-<div class="photo-slider">
-  <img src="https://via.placeholder.com/300x200?text=Family+Photo+1" class="active">
-  <img src="https://via.placeholder.com/300x200?text=Family+Photo+2">
-  <img src="https://via.placeholder.com/300x200?text=Family+Photo+3">
-</div>
+<div class="logo" id="logo">STIRBYS</div>
 
 <script>
-// Mouse trail
-document.addEventListener('mousemove', e => {
-  const trail = document.createElement('div');
-  trail.className = 'mouse-trail';
-  trail.style.left = e.clientX + 'px';
-  trail.style.top = e.clientY + 'px';
-  document.body.appendChild(trail);
-  setTimeout(() => trail.remove(), 500);
-});
+const logo = document.getElementById('logo');
+const emojis = ["✨","🎉","💖","🔥","🌟","🍀"];
 
-// Clickable emojis
-document.addEventListener('click', e => {
+logo.addEventListener('click', () => {
   const emoji = document.createElement('div');
-  emoji.textContent = ['✨','💖','🎉','🌟'][Math.floor(Math.random()*4)];
-  emoji.style.position = 'absolute';
-  emoji.style.left = e.clientX + 'px';
-  emoji.style.top = e.clientY + 'px';
-  emoji.style.fontSize = '24px';
-  emoji.style.userSelect = 'none';
+  emoji.className = 'emoji';
+  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  emoji.style.left = (logo.offsetLeft + logo.offsetWidth/2) + 'px';
+  emoji.style.top = (logo.offsetTop + logo.offsetHeight/2) + 'px';
   document.body.appendChild(emoji);
-  setTimeout(() => emoji.remove(), 1000);
-});
 
-// Photo slider
-const photos = document.querySelectorAll('.photo-slider img');
-let index = 0;
-setInterval(() => {
-  photos[index].classList.remove('active');
-  index = (index + 1) % photos.length;
-  photos[index].classList.add('active');
-}, 3000);
-
-// Easter egg: click title 5 times
-let clickCount = 0;
-const title = document.getElementById('title');
-title.addEventListener('click', () => {
-  clickCount++;
-  if (clickCount === 5) {
-    alert('🎁 Secret unlocked: You found the hidden family fun! 🎁');
-    clickCount = 0;
-  }
+  setTimeout(() => emoji.remove(), 3000);
 });
 </script>
 
