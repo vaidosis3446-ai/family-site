@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+  background: linear-gradient(135deg, #add8e6, #87cefa); /* light blue gradient */
   font-family: 'Comic Sans MS', cursive, sans-serif;
   overflow: hidden;
 }
@@ -19,9 +19,9 @@ body {
 .logo {
   font-size: 5em;
   font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
-  animation: pulse 2s infinite alternate, rainbow 6s linear infinite;
+  color: purple;
+  text-shadow: 0 0 10px violet, 0 0 20px purple, 0 0 30px violet;
+  animation: pulse 2s infinite alternate;
   cursor: pointer;
   user-select: none;
   letter-spacing: 5px;
@@ -30,14 +30,6 @@ body {
 @keyframes pulse {
   from { transform: scale(1); }
   to { transform: scale(1.1) rotate(3deg); }
-}
-
-@keyframes rainbow {
-  0%   { color: #ff69b4; }
-  25%  { color: #ff6347; }
-  50%  { color: #ffa500; }
-  75%  { color: #32cd32; }
-  100% { color: #1e90ff; }
 }
 
 /* floating emojis */
@@ -60,7 +52,7 @@ body {
 
 <script>
 const logo = document.getElementById('logo');
-const emojis = ["✨","🎉","💖","🔥","🌟","🍀"];
+const emojis = ["✨","🎉","🔥","⚡","🎸","🏀","🕶️"];
 
 logo.addEventListener('click', () => {
   const emoji = document.createElement('div');
